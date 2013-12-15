@@ -1,0 +1,30 @@
+Nat :: *;
+Nat = forall (natT::*) . natT -> (natT->natT) -> natT;
+
+0 :: Nat;
+0 = \ (natT::*) (zero::natT) (succ::natT->natT) -> zero;
+
+Succ :: Nat -> Nat;
+Succ n = \ (natT::*) (zero::natT) (succ::natT->natT) -> succ (n natT zero succ);
+
+natprim :: forall (r::*) . (r->r) -> r -> Nat -> r;
+natprim r succ zero n = n r zero succ;
+
+add :: Nat -> Nat -> Nat;
+add x y = x Nat y Succ;
+
+mul :: Nat -> Nat -> Nat;
+mul x y = x Nat 0 (add y);
+
+power :: Nat -> Nat -> Nat;
+power x y = y Nat (Succ 0) (mul x);
+
+isZero :: Nat -> Bool;
+isZero n = n Bool True (\ a::Bool -> False);
+
+1 :: Nat;
+1 = Succ 0;
+2 :: Nat;
+2 = Succ 1;
+3 :: Nat;
+3 = Succ 2;

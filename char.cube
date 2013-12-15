@@ -1,0 +1,17 @@
+Char :: *;
+Char = forall (charT::*) . charT->charT->charT->charT->charT;
+
+'a' :: Char;
+'a' = \ (charT::*) (_'a'::charT) (_'b'::charT) (_'c'::charT) (_'d'::charT) -> _'a';
+'b' :: Char;
+'b' = \ (charT::*) (_'a'::charT) (_'b'::charT) (_'c'::charT) (_'d'::charT) -> _'b';
+'c' :: Char;
+'c' = \ (charT::*) (_'a'::charT) (_'b'::charT) (_'c'::charT) (_'d'::charT) -> _'c';
+'d' :: Char;
+'d' = \ (charT::*) (_'a'::charT) (_'b'::charT) (_'c'::charT) (_'d'::charT) -> _'d';
+
+eqChar :: Char -> Char -> Bool;
+eqChar x y = x Bool (y Bool True False False False)
+       	       	    (y Bool False True False False)
+		    (y Bool False False True False)
+		    (y Bool False False False True);

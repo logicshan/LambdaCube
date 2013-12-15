@@ -1,0 +1,4 @@
+Unit :: *;
+Unit = forall unitT::* . unitT -> unitT;
+unit :: Unit;
+unit = \ (unitT::*) (x::unitT) -> x;

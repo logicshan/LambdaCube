@@ -1,0 +1,6 @@
+Char :: *;
+'a' :: Char;
+'b' :: Char;
+'c' :: Char;
+'d' :: Char;
+eqChar :: Char->Char->Bool;

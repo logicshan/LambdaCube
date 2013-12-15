@@ -1,0 +1,82 @@
+pristine:536bc979be3f3d0633ae496f3b8b219bffdeefca05fd39ded84e6982ffbf8419
+[Initial version of simple PTS.
+lennart@augustsson.net**20071108162303] 
+hash: 0000016622-d240bd157487051052a4266f5fec2662286e671f9111b635ff0b1bccc5119f8f
+[Clean up.
+lennart@augustsson.net**20071108163634] 
+hash: 0000001316-39cffa3ec196b67c5bf189e1cedadf6e3b5f14e061db9e00b504f2599e87a531
+[Make a top level and split examples.
+lennart@augustsson.net**20071108173443] 
+hash: 0000011202-d73e83d5f0d06f2eddd981704fcf4e0672cbcf42e180a88ee14364d1db8f4c8d
+[Top level for cube.
+lennart@augustsson.net**20071108173915] 
+hash: 0000001785-cf044ea90d740be4d231107b3b94aa2f5883aee53c368b517beda60cefce2759
+[Clean up.
+lennart@augustsson.net**20071108174005] 
+hash: 0000000715-71ba7d2bd21b462f4665eba6c2f841a23f875012512bc0bae361ba2b50040a7c
+[Set up for Cabal.
+lennart@augustsson.net**20071108180140] 
+hash: 0000003175-2ff35ebd177c041d3c080df61218bfdbf606ac89ca98f0c089ceebf538ee52ae
+[Clean more.
+lennart@augustsson.net**20071108180336] 
+hash: 0000000279-b7b59e85cc609c01a41f5b94afb2cac6842fab3941e367d46571527b33b7c540
+[Add a simple top level.
+lennart@augustsson.net**20071108192228] 
+hash: 0000003689-7f748870be9de7967672f87a878bf796892b0ac8415559488be9ea78c4e1f897
+[Tidy cube definitions.
+lennart@augustsson.net**20071108192245] 
+hash: 0000000590-a48a48250115ba2d4c55f11a55b182bf408e6bdea16fb4af962f01e17ccca3de
+[Better error message.
+lennart@augustsson.net**20071108195231] 
+hash: 0000000490-e6c31e89b138f0057b470f318d3c18a8caa720158d2eb600f7d3b139f276152c
+[Fix 'if' bug.
+lennart@augustsson.net**20071108195257] 
+hash: 0000000120-bfbb34dc10ef372197aa222e58a7781a5bd5a14cbf8b6a1d720095300e104563
+[Add foldl.
+lennart@augustsson.net**20071108195307] 
+hash: 0000000226-2f09006f72f2b062a83a8a1d24063d871612a6eee041150b24f1ac864152bda3
+[Break out list desf.
+lennart@augustsson.net**20071108195317] 
+hash: 0000001358-2d2ed7e85cc15eb6705a77dd1940c575ec880e87a5d4d34c14eaaef958037788
+[Add listmisc.cube.
+lennart@augustsson.net**20071108195342] 
+hash: 0000000315-c4e302403fcb5335be05896fab8226c5a6fe451e9bd7146d3447eb008a60dfd5
+[Change type variable names.
+lennart@augustsson.net**20071108200341] 
+hash: 0000000885-888e169563df51b2a86939a3364a35248d710728fb80429b2990cdaf2288ecfe
+[Allow dkipping initial lambdas in print.
+lennart@augustsson.net**20071108202431] 
+hash: 0000001553-1e41dd06307ddf248372eefb3e1c2ac245a72a30784d7f2378c5b361bfe79ef1
+[Change type variable names.
+lennart@augustsson.net**20071108202503] 
+hash: 0000001347-e9b81d9450321ccf6129e01bcf09a64ef632b9053f6539862ae88428dc3e109f
+[Get rid of id.
+lennart@augustsson.net**20071108203434] 
+hash: 0000000262-6a502e81a10ff80b7d2a89726724d96ea0d82a1fcf24917e3442cc46ab11755a
+[Add mul&power.
+lennart@augustsson.net**20071108203452] 
+hash: 0000000267-0dbcdc7ac3fb4b44a4a30db0d08d33c767ad4975ecc29a2a4f16127d0df8465e
+[Use consistent naming.
+lennart@augustsson.net**20071108204133] 
+hash: 0000003082-055cdc8173b72b7f8ed98b46680aa1904b12909c4eb43993167abba3ab57722d
+[Add any and all.
+lennart@augustsson.net**20071108204847] 
+hash: 0000000299-813123f487d13552971db87ab9f9893e2f38dccde722ff46b04e2cc0db8d08ac
+[Rename Char type variables.
+lennart@augustsson.net**20071108205710] 
+hash: 0000001050-7917bfa649510de30e9db8d30026ead42da92ed1cba92dcf1fddebdf53879501
+[Improve error message.
+lennart@augustsson.net**20071109162606] 
+hash: 0000000577-a214708dc8574681dd8156f4479fdbbdc2ebd99d0ddef47e43f9105e67e2eee1
+[Add natmisc.
+lennart@augustsson.net**20071109162635] 
+hash: 0000001031-758f1e1d324ca01d5fd50b337073428dcd947692eb7dd188aa61bb2c8fd1a7ad
+[Add eqChar in extchar.
+lennart@augustsson.net**20071109162649] 
+hash: 0000000114-2978fe2b8c001ee8cead38d742b62464e152707614356ed7598adeab837386e6
+[Rename pair constructor.
+lennart@augustsson.net**20071109171418] 
+hash: 0000001455-58320e18889eaacddab6f6e8da21d9784d1bba0d52b8c3340cc248b9a3d63ac5
+[Avoid const n replicate.
+lennart@augustsson.net**20071109181623] 
+hash: 0000000201-4a956d9550411ba4851a1a13f3b479ac30a905186dbc971adfb1720c32b18d3d
