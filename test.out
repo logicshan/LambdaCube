@@ -1,0 +1,6 @@
+Type:
+forall (Char :: *) .
+       Char->forall (listT :: *) . listT->(Char->listT->listT)->listT
+Value:
+\ (Char :: *) ('b' :: Char) (listT :: *) (nil :: listT)
+  (cons :: Char->listT->listT) -> cons 'b' (cons 'b' (cons 'b' nil))

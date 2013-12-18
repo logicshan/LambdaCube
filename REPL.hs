@@ -2,13 +2,14 @@
 -- Copyright (c) 2005 Lennart Augustsson
 -- See LICENSE for licensing details.
 --
+{-# LANGUAGE ScopedTypeVariables #-}
 module REPL(REPL(..), repl) where
 import qualified Control.Exception
 import System.Console.Readline(readline, addHistory)
 
 data REPL s = REPL {
     repl_init :: IO (String, s),                -- prompt and initial state
-    repl_eval :: s -> String -> IO (Bool, s),           -- quit flag and new state
+    repl_eval :: s -> String -> IO (Bool, s),   -- quit flag and new state
     repl_exit :: s -> IO ()
     }
 
@@ -26,7 +27,7 @@ repl p = do
                      else do
                         addHistory line
                         loop s'
-            ) `Control.Exception.catch` ( \ exc ->
+            ) `Control.Exception.catch` ( \ (exc :: Control.Exception.SomeException) ->
                 do
                     putStrLn $ "\nInterrupted (" ++ show exc ++ ")"
                     loop s
