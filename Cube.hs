@@ -3,6 +3,7 @@ import System.Environment(getArgs)
 import Data.Char(isSpace)
 import Data.List(sortBy)
 import Data.Function(on)
+import Data.Text(strip, pack, unpack)
 import REPL
 import CubeExpr
 
@@ -61,7 +62,7 @@ interactive = repl $ REPL { repl_init = cinit, repl_eval = ceval, repl_exit = ce
 	  return ("Cube> ", State "" False)
 	cexit _ = putStrLn "Bye."
 	ceval s line = do
-	    let rest = dropWhile isSpace $ dropWhile (not . isSpace) line
+	    let rest = dropWhile isSpace $ dropWhile (not . isSpace) $ (unpack . strip . pack) line
 	        load = readFile rest >>= addFile s
 		quit = return (True, s)
 		help = do putStrLn helpMsg; return (False, s)
