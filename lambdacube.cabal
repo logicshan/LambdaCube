@@ -5,7 +5,7 @@ License-file:	LICENSE
 Author:		Lennart Augustsson
 Category:	source-tools
 Synopsis:	A simple lambda cube type checker
-Build-Depends:	base, pretty, mtl
+Build-Depends:	base, pretty, mtl, readline
 
 Executable:	cube
 Main-Is:	Cube.hs
