@@ -2,6 +2,7 @@ module CubeExpr(
     Sym, Expr(..), Type,
     subst, nf, alphaEq, typeCheck, skipLambda
     ) where
+import Prelude hiding ((<>))
 import Data.Char(isAlphaNum, isAlpha)
 import Data.List(union, (\\))
 import Control.Monad.Except
@@ -116,11 +117,11 @@ tCheck r (Var s) =
     findVar r s
 tCheck r (Let s t a e) = do
     --tCheck r (expandLet s t a e)
-    tCheck r t
+    _ <- tCheck r t
     ta <- tCheck r a
     when (not (betaEq ta t)) $ throwError $ "Bad let def\n" ++ show (ta, t)
     te <- tCheck r (subst s a e)
-    tCheck r (Pi s t te)
+    _ <- tCheck r (Pi s t te)
     return te
 tCheck r (App f a) = do
     tf <- tCheckRed r f
@@ -135,11 +136,11 @@ tCheck r (App f a) = do
         return $ subst x a rt
      _ -> throwError $ "Non-function in application: " ++ show tf
 tCheck r (Lam s t e) = do
-    tCheck r t
+    _ <- tCheck r t
     let r' = extend s t r
     te <- tCheck r' e
     let lt = Pi s t te
-    tCheck r lt
+    _ <- tCheck r lt
     return lt
 tCheck r (Pi x a b) = do
     s <- tCheckRed r a
@@ -163,13 +164,13 @@ typeCheck e = fmap nf $ tCheck initalEnv e
 --    case  of
 --    Left msg -> error ("Type error:\n" ++ msg)
 --    Right t -> nf t
-
+{-
 typeCheck' :: Expr -> Type
 typeCheck' e =
     case tCheck initalEnv e of
     Left msg -> error ("Type error:\n" ++ msg)
     Right t -> nf t
-
+-}
 ---------------------------------------------------------------------
 
 ppsExpr :: Expr -> String
@@ -375,13 +376,13 @@ pSym = do
 schar :: Char -> ReadP ()
 schar c = do
     skipSpaces
-    char c
+    _ <- char c
     return ()
 
 sstring :: String -> ReadP ()
 sstring s = do
     skipSpaces
-    string s
+    _ <- string s
     return ()
 
 skeyword :: String -> ReadP ()
