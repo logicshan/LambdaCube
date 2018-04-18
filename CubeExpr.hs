@@ -4,9 +4,9 @@ module CubeExpr(
     ) where
 import Data.Char(isAlphaNum, isAlpha)
 import Data.List(union, (\\))
-import Control.Monad.Error
+import Control.Monad.Except
 import Text.PrettyPrint.HughesPJ(Doc, renderStyle, style, text, (<>), (<+>), parens, ($$),
-       				 vcat, punctuate, sep, fsep, nest)
+                                 vcat, punctuate, sep, fsep, nest)
 import Text.ParserCombinators.ReadP(ReadP, (+++), char, munch1, many1, string, pfail, sepBy,
                                     optional, many, skipSpaces, readP_to_S, look)
 
@@ -17,7 +17,7 @@ data Expr
         | App Expr Expr
         | Lam Sym Type Expr
         | Pi Sym Type Type
-	| Let Sym Type Expr Expr
+        | Let Sym Type Expr Expr
         | Kind Kind
         deriving (Eq)
 
@@ -42,8 +42,8 @@ subst v x = sub
         sub (App f a) = App (sub f) (sub a)
         sub (Lam i t e) = abstr Lam i t e
         sub (Pi i t e) = abstr Pi i t e
-	sub (Let i t e b) = let App (Lam i' t' b') e' = sub (expandLet i t e b)
-	    	       	    in  Let i' t' e' b'
+        sub (Let i t e b) = let App (Lam i' t' b') e' = sub (expandLet i t e b)
+                            in  Let i' t' e' b'
         sub (Kind k) = Kind k
         fvx = freeVars x
         cloneSym e i = loop i
@@ -63,7 +63,7 @@ whnf :: Expr -> Expr
 whnf ee = spine ee []
   where spine (App f a) as = spine f (a:as)
         spine (Lam s _ e) (a:as) = spine (subst s a e) as
-	spine (Let i t e b) as = spine (expandLet i t e b) as
+        spine (Let i t e b) as = spine (expandLet i t e b) as
         spine f as = foldl App f as
 
 nf :: Expr -> Expr
@@ -72,7 +72,7 @@ nf ee = spine ee []
         spine (Lam s t e) [] = Lam s (nf t) (nf e)
         spine (Lam s _ e) (a:as) = spine (subst s a e) as
         spine (Pi s k t) as = app (Pi s (nf k) (nf t)) as
-	spine (Let i t e b) as = spine (expandLet i t e b) as
+        spine (Let i t e b) as = spine (expandLet i t e b) as
         spine f as = app f as
         app f as = foldl App f (map nf as)
 
@@ -128,10 +128,10 @@ tCheck r (App f a) = do
      Pi x at rt -> do
         ta <- tCheck r a
         when (not (betaEq ta at)) $ throwError $ "Bad function argument type:\n" ++
-	     	  	     	    	       	 "Function: " ++ show (nf f) ++ "\n" ++
-						 "argument: " ++ show (nf a) ++ "\n" ++
-						 "expected type: " ++ show at ++ "\n" ++
-						 "     got type: " ++ show ta
+                                                 "Function: " ++ show (nf f) ++ "\n" ++
+                                                 "argument: " ++ show (nf a) ++ "\n" ++
+                                                 "expected type: " ++ show at ++ "\n" ++
+                                                 "     got type: " ++ show ta
         return $ subst x a rt
      _ -> throwError $ "Non-function in application: " ++ show tf
 tCheck r (Lam s t e) = do
@@ -181,20 +181,20 @@ ppExpr p (Pi s t e) | s `notElem` freeVars e = pparens (p > 0) $ ppExpr 1 t <> t
 ppExpr p l@(Pi _ _ _) = pparens (p > 0) $ text "forall" <+> (fsep $ args ++ [text ".", ppExpr 0 b])
   where (args, b) = collectPi [] l
         collectPi vts (Pi v t e) | v `elem` freeVars e = collectPi (ppBound v t : vts) e
-	collectPi vts e = (reverse vts, e)
+        collectPi vts e = (reverse vts, e)
 ppExpr p l@(Lam _ _ _) = pparens (p > 0) $ text "\\" <+> (fsep $ args ++ [text "->", ppExpr 0 b])
   where (args, b) = collectLam [] l
         collectLam vts (Lam v t e) = collectLam (ppBound v t : vts) e
-	collectLam vts e = (reverse vts, e)
+        collectLam vts e = (reverse vts, e)
 
 ppExpr p ee@(Let _ _ _ _) = 
     let (stes, body) = collectBinds [] ee
-	ppBind (s, t, Just e) = sep [text s <+> text "::" <+> ppExpr 0 t <> text " =", nest 4 $ ppExpr 0 e]
-	ppBind (s, t, Nothing) = text s <+> text "::" <+> ppExpr 0 t
-	ppBinds xs = vcat $ punctuate (text ";") (map ppBind xs)
-	collectBinds bs (Let s t e b) = collectBinds (bs ++ [(s, t, Just e)]) b
---	collectBinds bs (Lam s t b) = collectBinds (bs ++ [(s, t, Nothing)]) b
-	collectBinds bs b = (bs, b)
+        ppBind (s, t, Just e) = sep [text s <+> text "::" <+> ppExpr 0 t <> text " =", nest 4 $ ppExpr 0 e]
+        ppBind (s, t, Nothing) = text s <+> text "::" <+> ppExpr 0 t
+        ppBinds xs = vcat $ punctuate (text ";") (map ppBind xs)
+        collectBinds bs (Let s t e b) = collectBinds (bs ++ [(s, t, Just e)]) b
+--      collectBinds bs (Lam s t b) = collectBinds (bs ++ [(s, t, Nothing)]) b
+        collectBinds bs b = (bs, b)
     in  pparens (p > 0) $
         (text "let " <> ppBinds stes) $$ (text "in  " <> ppExpr 0 body)
 
@@ -222,8 +222,8 @@ removeComments :: String -> String
 removeComments "" = ""
 removeComments ('-':'-':cs) = skip cs
   where skip "" = ""
-	skip s@('\n':_) = removeComments s
-	skip (_:s) = skip s
+        skip s@('\n':_) = removeComments s
+        skip (_:s) = skip s
 removeComments (c:cs) = c : removeComments cs
 
 pTop :: ReadP Expr
@@ -295,7 +295,7 @@ matchH _ _ _ = pfail
 pBindR :: ReadP (Sym, Type, Maybe Expr)
 pBindR = do
     let addT (s, t) r = Pi s t r
-	addE (s, t) e = Lam s t e
+        addE (s, t) e = Lam s t e
     sy <- pSym
     args <- many pArg
     sstring "::"
@@ -332,9 +332,9 @@ pPiArrow = do
     rt <- pAExpr
     return $ foldr (\ (s, t) r -> Pi s t r) rt ts
   where pPiArg = pPiNoDep +++ pArg
-	pPiNoDep = do
-	    t <- pAExpr
-	    return ("_", t)
+        pPiNoDep = do
+            t <- pAExpr
+            return ("_", t)
 
 pArg :: ReadP (Sym, Type)
 pArg = pParen pVarType
@@ -368,7 +368,7 @@ pSym = do
     skipSpaces
     cs <- munch1 isSym
     if cs `elem` ["let", "in", "forall", "_"] then
-	pfail
+        pfail
      else
         return cs
 
